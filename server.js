@@ -10,7 +10,7 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: process.env.BASE_URL || "http://localhost:5000",
+    origin: "https://mernproject-self.vercel.app",
     credentials: true,
   })
 );
