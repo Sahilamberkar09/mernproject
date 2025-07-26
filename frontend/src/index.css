@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .bg {
-  background: url(https://img.freepik.com/free-photo/japan-background-digital-art_23-2151546198.jpg?t=st=1751693893~exp=1751697493~hmac=11c9412b402d846c166ab45b8ad4a08be7ad4118f1222048ba418a0fc339e8e2&w=1800);
+  background: url(https://images.unsplash.com/photo-1743398665751-2cd5d3cc9d46?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-repeat: no-repeat;
   background-size: cover;
 }
