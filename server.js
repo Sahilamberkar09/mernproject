@@ -16,8 +16,6 @@ app.get("/", (req, res) => res.send("API Running"));
 const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes); //
 
-// // Call the user insertion function
-// addTestUser();
 app.use(express.static(path.join(__dirname, "./frontend/build")));
 app.get(/.*/, function (req, res) {
   console.log(

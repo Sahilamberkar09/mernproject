@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import { axiosInstance } from "../libs/axios";
 
 const FetchUsers = () => {
   const [users, setUsers] = useState([]);
@@ -11,7 +11,7 @@ const FetchUsers = () => {
 
   const dataFetch = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/users", {
+      const response = await axiosInstance.get("/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(response.data);
@@ -24,12 +24,9 @@ const FetchUsers = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/users/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axiosInstance.delete(`/users/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       if (response.status === 200) {
         alert("User deleted successfully!");
