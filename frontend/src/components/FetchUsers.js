@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 const FetchUsers = () => {
@@ -9,7 +9,7 @@ const FetchUsers = () => {
   const token = storedUser?.token;
   const isAdmin = storedUser?.isAdmin;
 
-  const dataFetch = async () => {
+  const dataFetch = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/users", {
         headers: { Authorization: `Bearer ${token}` },
@@ -18,7 +18,7 @@ const FetchUsers = () => {
     } catch (error) {
       setError(error.message);
     }
-  };
+  }, [token]); // token is required here because it's used inside dataFetch
 
   const deleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
@@ -47,7 +47,7 @@ const FetchUsers = () => {
     } else {
       setError("You are not authorized to view this page");
     }
-  }, []);
+  }, [token, isAdmin, dataFetch]);
 
   return (
     <div className="p-6">
@@ -82,3 +82,71 @@ const FetchUsers = () => {
 };
 
 export default FetchUsers;
+
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+
+// function FetchUsers() {
+//   const [users, setUsers] = useState([]);
+//   const [error, setError] = useState("");
+
+//   const storedUser = JSON.parse(localStorage.getItem("user"));
+//   const token = storedUser?.token;
+//   const isAdmin = storedUser?.isAdmin;
+
+//   const fetchData = async () => {
+//     try {
+//       const response = await axios.get("https://localhost:5000/api/users", {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+//       setUsers(response.data);
+//     } catch (err) {
+//       setError(err.response?.data?.message || err.message);
+//     }
+//   };
+
+//   const deleteUser = async (id) => {
+//     if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+//     try {
+//       await axios.delete(`http://localhost:5000/api/users/${id}`, {
+//         headers: { Authorization: `Bearer ${token}` },
+//       });
+//       setUsers((prev) => prev.filter((u) => u._id !== id));
+//     } catch (err) {
+//       setError(err.response?.data?.message || err.message);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (token && isAdmin) {
+//       fetchData();
+//     } else {
+//       setError("You are not authorized to view this page");
+//     }
+//   }, []);
+
+//   return (
+//     <div>
+//       <h3>All Users (Admin Only)</h3>
+//       {error && <p style={{ color: "red" }}>Error: {error}</p>}
+//       <ul>
+//         {users.map((user) => (
+//           <li key={user._id}>
+//             {user.name} ({user.email})
+//             {isAdmin && (
+//               <button
+//                 style={{ marginLeft: "10px" }}
+//                 onClick={() => deleteUser(user._id)}
+//               >
+//                 Delete
+//               </button>
+//             )}
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
+
+// export default FetchUsers;
