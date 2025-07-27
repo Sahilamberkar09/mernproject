@@ -10,7 +10,7 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: "https://mernproject-self.vercel.app",
+    origin: process.env.CLIENT_URL || "*",
     credentials: true,
   })
 );
@@ -22,11 +22,17 @@ const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes); //
 
 app.use(express.static(path.join(__dirname, "./frontend/build")));
+
 app.get(/.*/, function (req, res) {
   console.log(
     "Serving React Frontend from",
     path.join(__dirname, "./frontend/build/index.html")
   );
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Server Error" });
 });
 
 const PORT = process.env.PORT || 5000;
