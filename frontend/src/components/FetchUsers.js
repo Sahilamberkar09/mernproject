@@ -24,9 +24,12 @@ const FetchUsers = () => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      const response = await axiosInstance.delete(`/api/users/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.delete(
+        `${process.env.BASE_URL}/api/users/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       if (response.status === 200) {
         alert("User deleted successfully!");
