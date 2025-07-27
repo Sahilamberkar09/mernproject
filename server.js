@@ -19,7 +19,7 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("API Running"));
 
 const userRoutes = require("./routes/userRoutes");
-app.use("/users", userRoutes); //
+app.use("/api/users", userRoutes); //
 
 app.use(express.static(path.join(__dirname, "./frontend/build")));
 

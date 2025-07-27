@@ -27,7 +27,7 @@ function ForgetPassword() {
     }
 
     try {
-      const res = await axiosInstance.post("/users/forgetpass", {
+      const res = await axiosInstance.post("/api/users/forgetpass", {
         email,
         oldPassword,
         newPassword,
