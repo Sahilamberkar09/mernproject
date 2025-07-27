@@ -12,7 +12,7 @@ function Login({ onLoginSuccess }) {
     e.preventDefault();
     setError("");
     try {
-      const res = await axiosInstance.post("/users/login", {
+      const res = await axiosInstance.post("users/login", {
         email,
         password,
       });
