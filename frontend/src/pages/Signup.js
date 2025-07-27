@@ -1,4 +1,4 @@
-import { axiosInstance } from "../libs/axios";
+import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -10,7 +10,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axiosInstance.post("/api/users/signup", {
+      await axios.post(`${process.env.BASE_URL}/api/users/signup`, {
         name,
         email,
         password,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { axiosInstance } from "../libs/axios";
+import axios from "axios";
 
 const FetchUsers = () => {
   const [users, setUsers] = useState([]);
@@ -11,7 +11,7 @@ const FetchUsers = () => {
 
   const dataFetch = useCallback(async () => {
     try {
-      const response = await axiosInstance.get("/api/users", {
+      const response = await axios.get(`${process.env.BASE_URL}/api/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(response.data);

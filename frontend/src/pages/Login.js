@@ -1,4 +1,4 @@
-import { axiosInstance } from "../libs/axios";
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { NavLink } from "react-router-dom";
@@ -12,7 +12,7 @@ function Login({ onLoginSuccess }) {
     e.preventDefault();
     setError("");
     try {
-      const res = await axiosInstance.post("/api/users/login", {
+      const res = await axios.post(`${process.env.BASE_URL}/api/users/login`, {
         email,
         password,
       });

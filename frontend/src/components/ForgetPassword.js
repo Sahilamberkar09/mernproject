@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { axiosInstance } from "../libs/axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function ForgetPassword() {
@@ -27,11 +27,14 @@ function ForgetPassword() {
     }
 
     try {
-      const res = await axiosInstance.post("/api/users/forgetpass", {
-        email,
-        oldPassword,
-        newPassword,
-      });
+      const res = await axios.post(
+        `${process.env.BASE_URL}/api/users/forgetpass`,
+        {
+          email,
+          oldPassword,
+          newPassword,
+        }
+      );
 
       setMessage(res.data.message);
       setError("");
